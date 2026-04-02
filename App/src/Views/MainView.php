@@ -7,12 +7,14 @@ use Core\Views\AbstractView;
 
 class MainView extends AbstractView 
 {
+
+
     /**
      * Implements the path to the specific template for the Main View.
      */
     protected function templatePath(): string 
     {
-        return 'main.html';
+        return __DIR__ . DIRECTORY_SEPARATOR . 'main.html';    
     }
 
     /**

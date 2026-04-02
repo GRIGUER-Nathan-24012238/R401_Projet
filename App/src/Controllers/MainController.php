@@ -8,11 +8,12 @@ use App\src\Views\MainView;
 class MainController implements ControllerInterface {
     public function control(): void
     {
-        new MainView()->render();
+        $view= new MainView();
+        $view->render();
     }
 
-    public function support(string $path, string $method): bool
+    public static function support(string $path, string $method): bool
     {
-        return ($path == "" && $method == "GET");
+        return $path == '/' && $method === 'GET';
     }
 }

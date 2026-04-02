@@ -26,28 +26,22 @@ class Autoloader
 
         spl_autoload_register(
             function ($class) {
-                // Convert namespace to file path.
                 $classPath = str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
 
                 $file = null;
 
-                // Handle 'App' namespace (e.g., App\Models\User\User -> App/src/Models/User/User.php).
                 if (str_starts_with($class, 'App\\')) {
-                    $file = self::$projectRoot . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'src' .
-                            DIRECTORY_SEPARATOR . substr($classPath, 4); // Remove 'App\' part.
+                    $file = self::$projectRoot . DIRECTORY_SEPARATOR . $classPath;
                 } elseif (
                     str_starts_with($class, 'Models\\')
                     || str_starts_with($class, 'Services\\') || str_starts_with($class, 'Controllers\\')
                     || str_starts_with($class, 'Views\\') || str_starts_with($class, 'Validator\\')
                 ) {
-                    // Handle 'Models', 'Services' namespaces which are under App/src.
                     $file = self::$projectRoot . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'src' .
                             DIRECTORY_SEPARATOR . $classPath;
                 } elseif (str_starts_with($class, 'Core\\')) {
-                    // Handle 'Core' namespace (e.g., Core\Utils\Logger -> Core/Utilis/Logger.php).
                     $file = self::$projectRoot . DIRECTORY_SEPARATOR . $classPath;
                 }
-
 
                 if ($file !== null && file_exists($file)) {
                     require_once $file;
