@@ -10,6 +10,7 @@ abstract class AbstractView
 
     abstract protected function getNameCss(): string;
 
+    abstract protected function templateKeys(): array;
 
     public function render(): void
     {

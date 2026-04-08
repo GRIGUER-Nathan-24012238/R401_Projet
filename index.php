@@ -1,13 +1,14 @@
 <?php
 
+use App\src\Controllers\GetDishesController;
+
 include "Core/Includes/Autoloader.php";
 \Core\Includes\Autoloader::register();
 
-use App\src\Controllers\MainController;
+use App\src\Controllers\IndexController;
 use Core\Services\SessionService;
 
-
-$controllers = [new MainController()];
+$controllers = [new IndexController(), new GetDishesController()];
 
 
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: "";
@@ -33,6 +34,3 @@ http_response_code(404);
 SessionService::setFlash('errors', "Page non existante.");
 header("Location: /");
 exit();
-
-$mainController = new MainController();
-$mainController->control();
