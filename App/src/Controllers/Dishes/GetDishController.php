@@ -23,8 +23,8 @@ class GetDishController implements ControllerInterface
     public function control(): void
     {
         $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        if (preg_match('#^/plats/(\d+)$#', $path, $matches)) {
-            $id = (int) $matches[1];
+        if (preg_match('#^/plats/([a-zA-Z0-9\-_]+)$#', $path, $matches)) {
+            $id = $matches[1];
             $dish = $this->getDishUseCase->execute($id);
             
             if ($dish) {
@@ -40,6 +40,6 @@ class GetDishController implements ControllerInterface
 
     public static function support(string $path, string $method): bool
     {
-        return $method === 'GET' && preg_match('#^/plats/(\d+)$#', $path);
+        return $method === 'GET' && preg_match('#^/plats/([a-zA-Z0-9\-_]+)$#', $path);
     }
 }

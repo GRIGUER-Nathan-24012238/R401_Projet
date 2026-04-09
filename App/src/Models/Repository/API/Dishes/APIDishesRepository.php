@@ -55,7 +55,7 @@ class APIDishesRepository implements RepositoryInterface
 
     function find($id)
     {
-        $response = file_get_contents($this->baseUrl . '/plats/' . $id);
+        $response = @file_get_contents($this->baseUrl . '/plats/' . $id);
 
         if ($response === false) {
             return null;
@@ -68,9 +68,39 @@ class APIDishesRepository implements RepositoryInterface
 
         return DishesFactory::fromArray($data);
     }
+
+    function update($id, $entity)
+    {
+        if (!$entity instanceof Dish) {
+            throw new \InvalidArgumentException('Entity must be an instance of Dish');
+        }
+
+        $data = [
+            'nom' => $entity->getName(),
+            'description' => $entity->getDescription(),
+            'prix' => $entity->getPrix()
+        ];
+
+        $options = [
+            'http' => [
+                'header'  => "Content-type: application/json\r\n",
+                'method'  => 'PUT',
+                'content' => json_encode($data),
+                'ignore_errors' => true
+            ]
+        ];
+
+        $context  = stream_context_create($options);
+        $result = @file_get_contents($this->baseUrl . '/plats/' . $id, false, $context);
+
+        if ($result === false) {
+            $error = error_get_last();
+            throw new \RuntimeException('Erreur de connexion à l\'API pour la mise à jour : ' . ($error['message'] ?? 'Serveur injoignable.'));
+        }
+
+        return json_decode($result, true);
+    }
     function delete($id)
-    {}
-    function update($id)
     {}
 
     public function all()

@@ -6,7 +6,7 @@ interface RepositoryInterface {
 
     function find($id);
     function delete($id);
-    function update($id);
+    function update($id, $entity);
 
     function all();
 }

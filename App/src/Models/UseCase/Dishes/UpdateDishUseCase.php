@@ -2,8 +2,20 @@
 
 namespace App\src\Models\UseCase\Dishes;
 
+use App\src\Models\Entities\Dishes\Dish;
+use App\src\Models\Service\RepositoryInterface;
 
 class UpdateDishUseCase
 {
-    
+    private RepositoryInterface $repository;
+
+    public function __construct(RepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function execute(string $id, Dish $dish)
+    {
+        return $this->repository->update($id, $dish);
+    }
 }

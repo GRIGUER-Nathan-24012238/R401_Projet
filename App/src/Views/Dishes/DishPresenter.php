@@ -13,6 +13,7 @@ class DishPresenter
         }
 
         return [
+            'id' => $dish->getId(),
             'nom' => htmlspecialchars($dish->getName()),
             'description' => htmlspecialchars($dish->getDescription()),
             'prix' => number_format($dish->getPrix(), 2, ',', ' ') . ' €'

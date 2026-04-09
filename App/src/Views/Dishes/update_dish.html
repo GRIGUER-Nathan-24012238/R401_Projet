@@ -1,0 +1,24 @@
+<div class="form-container">
+    <h1>Modifier le plat : {{NOM}}</h1>
+    <form action="/plats/{{ID}}/modifier" method="POST">
+        <div class="form-group">
+            <label for="nom">Nom du plat</label>
+            <input type="text" id="nom" name="nom" value="{{NOM}}" required placeholder="Ex: Pizza Margherita">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" required placeholder="Ex: Tomate, mozzarella, basilic">{{DESCRIPTION}}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="prix">Prix (€)</label>
+            <input type="number" id="prix" name="prix" value="{{PRIX}}" step="0.1" min="0" required placeholder="Ex: 12.50">
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+            <a href="/plats/{{ID}}" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</div>

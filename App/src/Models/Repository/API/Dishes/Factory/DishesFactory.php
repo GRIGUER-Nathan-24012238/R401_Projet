@@ -10,7 +10,8 @@ class DishesFactory
         return new Dish(
             $data['nom'],
             $data['description'],
-            $data['prix']
+            $data['prix'],
+            $data['id'] ?? null
         );
     }
 }
