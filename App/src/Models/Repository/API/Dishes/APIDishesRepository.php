@@ -38,22 +38,36 @@ class APIDishesRepository implements RepositoryInterface
         ];
 
         $context  = stream_context_create($options);
-        $result = file_get_contents($this->baseUrl . '/plats', false, $context);
+        $result = @file_get_contents($this->baseUrl . '/plats', false, $context);
 
         if ($result === false) {
-            throw new \RuntimeException('Erreur lors de la sauvegarde du plat via l\'API.');
+            $error = error_get_last();
+            throw new \RuntimeException('Erreur de connexion à l\'API (' . $this->baseUrl . ') : ' . ($error['message'] ?? 'Serveur injoignable. Assurez-vous que json-server est lancé.'));
         }
 
-        $http_response_header = $http_response_header ?? [];
-        if (!preg_match('/20[0-1]/', $http_response_header[0])) {
-            throw new \RuntimeException('L\'API a retourné une erreur: ' . $http_response_header[0] . ' - ' . $result);
+        $http_status = $http_response_header[0] ?? 'Inconnu';
+        if (!preg_match('/20[0-1]/', $http_status)) {
+            throw new \RuntimeException('L\'API a retourné une erreur (' . $http_status . ') : ' . $result);
         }
 
         return json_decode($result, true);
     }
 
     function find($id)
-    {}
+    {
+        $response = file_get_contents($this->baseUrl . '/plats/' . $id);
+
+        if ($response === false) {
+            return null;
+        }
+
+        $data = json_decode($response, true);
+        if (!$data) {
+            return null;
+        }
+
+        return DishesFactory::fromArray($data);
+    }
     function delete($id)
     {}
     function update($id)
