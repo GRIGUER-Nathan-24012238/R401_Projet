@@ -8,9 +8,14 @@ use App\src\Views\Dishes\CreateDishView;
 use Core\Controllers\ControllerInterface;
 
 /**
+ * Class CreateDishController
+ * 
  * Controller for creating new dishes.
  * 
  * Handles both the display of the creation form and the processing of the form submission.
+ * 
+ * @package App\src\Controllers\Dishes
+ * @author  Hernandez Loic - Griguer Nathan
  */
 class CreateDishController implements ControllerInterface
 {

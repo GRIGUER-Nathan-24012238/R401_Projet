@@ -8,7 +8,12 @@ use App\src\Views\Dishes\DishPresenter;
 use Core\Controllers\ControllerInterface;
 
 /**
+ * Class GetDishController
+ * 
  * Controller to display the details of a specific dish.
+ * 
+ * @package App\src\Controllers\Dishes
+ * @author  Hernandez Loic - Griguer Nathan
  */
 class GetDishController implements ControllerInterface
 {
