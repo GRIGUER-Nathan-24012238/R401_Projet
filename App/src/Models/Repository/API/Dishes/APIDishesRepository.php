@@ -28,24 +28,14 @@ class APIDishesRepository implements RepositoryInterface
 
     public function all()
     {
-    $response = file_get_contents('http://localhost:3001/plats');
+        $response = file_get_contents($this->baseUrl . '/plats');
 
-    if ($response === false) {
-        throw new \RuntimeException('Impossible de contacter l\'API plats.');
-    }
+        if ($response === false) {
+            throw new \RuntimeException('Impossible de contacter l\'API plats.');
+        }
 
-    $data = json_decode($response, true);
+        $data = json_decode($response, true);
 
-    if (!is_array($data)) {
-        throw new \RuntimeException('Réponse API invalide.');
-    }
-
-    $collection = new DishCollection();
-
-    foreach ($data as $item) {
-        $collection->add(DishesFactory::fromArray($item));
-    }
-
-    return $collection;
+        return $data;
     }
 }

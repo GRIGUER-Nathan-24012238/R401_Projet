@@ -1,24 +1,29 @@
 <?php
 
+use App\src\Controllers\Dishes\DishesPresenter;
+use App\src\Controllers\Dishes\GetAllDishesController;
+use App\src\Controllers\IndexController;
 use App\src\Models\Repository\API\Dishes\APIDishesRepository;
 use App\src\Models\UseCase\Dishes\GetDishesUseCase;
+use App\src\Views\Dishes\DishesView;
 
 include "Core/Includes/Autoloader.php";
 \Core\Includes\Autoloader::register();
 
-use App\src\Controllers\IndexController;
-use App\src\Controllers\Dishes\GetAllDishesController;
-
-$dishRepository = new APIDishesRepository('http://localhost:3001');
+$dishRepository  = new APIDishesRepository('http://localhost:3001');
 $getDishesUseCase = new GetDishesUseCase($dishRepository);
+$dishesPresenter = new DishesPresenter($getDishesUseCase);
+$dishesView      = new DishesView($dishesPresenter);
 
-$controllers = [new IndexController(), new GetAllDishesController($getDishesUseCase)];
+$controllers = [new IndexController(), new GetAllDishesController($dishesView)];
 
 
-$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: "";
+$requestUri = $_SERVER['REQUEST_URI'] ?? '/';
+$requestMethod = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+$path = parse_url($requestUri, PHP_URL_PATH) ?: "";
 
 foreach ($controllers as $controller) {
-    if ($controller::support($path, $_SERVER['REQUEST_METHOD'])) {
+    if ($controller::support($path, $requestMethod)) {
         try {
             $controller->control();
             exit();

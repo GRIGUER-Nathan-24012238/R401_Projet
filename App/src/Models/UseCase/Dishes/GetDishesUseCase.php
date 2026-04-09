@@ -9,7 +9,6 @@ use App\src\Models\Service\RepositoryInterface;
 class GetDishesUseCase 
 {
     private RepositoryInterface $repositoryInterface;
-    private DishesPresenter $dishesPresenter;
 
     public function __construct($repositoryInterface){
         $this->repositoryInterface = $repositoryInterface;
