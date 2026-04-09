@@ -1,0 +1,46 @@
+<article class="single-dish">
+    <h1>{{NOM}}</h1>
+    <div class="user-details" style="margin-bottom: 30px;">
+        <p><strong>Email :</strong> {{EMAIL}}</p>
+        <p><strong>Adresse :</strong> {{ADRESSE}}</p>
+    </div>
+    
+    <div class="actions">
+        <a href="/utilisateurs" class="back-link">← Retour à la liste</a>
+        <a href="/utilisateurs/{{ID}}/modifier" class="back-link" style="margin-left: 10px; background-color: #007bff; color: white;">✎ Modifier cet abonné</a>
+        <a href="/utilisateurs/{{ID}}/supprimer" class="back-link" style="margin-left: 10px; background-color: #dc3545; color: white;">🗑 Supprimer cet abonné</a>
+    </div>
+</article>
+
+<style>
+.single-dish {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.single-dish h1 {
+    color: #333;
+    margin-bottom: 25px;
+}
+.user-details p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+    margin: 10px 0;
+}
+.back-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    color: #007bff;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+.back-link:hover {
+    background-color: #e2e6ea;
+}
+</style>

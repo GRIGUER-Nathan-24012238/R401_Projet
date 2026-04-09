@@ -1,38 +1,39 @@
 <?php
 
 namespace App\src\Models\Entities\Users;
-class User {
-    private int $id;
-    private string $firstname;
-    private string $lastname;
-    private string $email;
-    private string $address;
 
-    public function __construct(int $id, string $firstname, string $lastname, string $email, string $address) {
-        $this->id = $id;
-        $this->firstname = $firstname;
-        $this->lastname = $lastname;
+class User 
+{
+    private ?string $id;
+    private string $nom;
+    private string $email;
+    private string $adresse;
+
+    public function __construct(string $nom, string $email, string $adresse, ?string $id = null) 
+    {
+        $this->nom = $nom;
         $this->email = $email;
-        $this->address = $address;
+        $this->adresse = $adresse;
+        $this->id = $id;
     }
 
-    public function getId(): int {
+    public function getId(): ?string 
+    {
         return $this->id;
     }
 
-    public function getFirstname(): string {
-        return $this->firstname;
+    public function getNom(): string 
+    {
+        return $this->nom;
     }
 
-    public function getLastname(): string {
-        return $this->lastname;
-    }
-
-    public function getEmail(): string {
+    public function getEmail(): string 
+    {
         return $this->email;
     }
 
-    public function getAddress(): string {
-        return $this->address;
+    public function getAdresse(): string 
+    {
+        return $this->adresse;
     }
 }

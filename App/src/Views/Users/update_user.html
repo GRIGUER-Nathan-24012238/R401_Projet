@@ -1,0 +1,24 @@
+<div class="form-container">
+    <h1>Modifier l'abonné : {{NOM}}</h1>
+    <form action="/utilisateurs/{{ID}}/modifier" method="POST">
+        <div class="form-group">
+            <label for="nom">Nom complet</label>
+            <input type="text" id="nom" name="nom" value="{{NOM}}" required placeholder="Ex: Jean Dupont">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Adresse Email</label>
+            <input type="email" id="email" name="email" value="{{EMAIL}}" required placeholder="Ex: jean.dupont@email.com">
+        </div>
+
+        <div class="form-group">
+            <label for="adresse">Adresse Postale</label>
+            <textarea id="adresse" name="adresse" required placeholder="Ex: 123 Rue de la Liberté, 75000 Paris">{{ADRESSE}}</textarea>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Mettre à jour l'abonné</button>
+            <a href="/utilisateurs/{{ID}}" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</div>

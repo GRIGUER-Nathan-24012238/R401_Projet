@@ -1,0 +1,17 @@
+<div class="form-container">
+    <h1 style="color: #dc3545;">Confirmer la suppression</h1>
+    <p>Êtes-vous sûr de vouloir supprimer définitivement cet abonné ?</p>
+    
+    <div class="user-preview" style="background: #f8f9fa; padding: 25px; border-radius: 12px; margin: 30px 0; border: 1px solid #ddd;">
+        <h2>{{NOM}}</h2>
+        <p><strong>Email :</strong> {{EMAIL}}</p>
+        <p><strong>Adresse :</strong> {{ADRESSE}}</p>
+    </div>
+
+    <form action="/utilisateurs/{{ID}}/supprimer" method="POST">
+        <div class="form-actions">
+            <button type="submit" class="btn btn-danger" style="background-color: #dc3545; color: white;">Oui, supprimer définitivement</button>
+            <a href="/utilisateurs/{{ID}}" class="btn btn-secondary">Non, annuler</a>
+        </div>
+    </form>
+</div>

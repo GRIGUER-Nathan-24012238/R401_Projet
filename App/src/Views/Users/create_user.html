@@ -1,0 +1,85 @@
+<div class="form-container">
+    <h1>Inscrire un nouvel abonné</h1>
+    <form action="/utilisateurs/nouveau" method="POST">
+        <div class="form-group">
+            <label for="nom">Nom complet</label>
+            <input type="text" id="nom" name="nom" required placeholder="Ex: Jean Dupont">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Adresse Email</label>
+            <input type="email" id="email" name="email" required placeholder="Ex: jean.dupont@email.com">
+        </div>
+
+        <div class="form-group">
+            <label for="adresse">Adresse Postale</label>
+            <textarea id="adresse" name="adresse" required placeholder="Ex: 123 Rue de la Liberté, 75000 Paris"></textarea>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Enregistrer l'abonné</button>
+            <a href="/utilisateurs" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</div>
+
+<style>
+.form-container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #444;
+}
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+.btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+}
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+.btn-secondary {
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #ddd;
+}
+.btn-secondary:hover {
+    background-color: #e2e6ea;
+}
+</style>

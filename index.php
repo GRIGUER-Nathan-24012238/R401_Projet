@@ -8,6 +8,14 @@ use App\src\Views\Dishes\UpdateDishView;
 use App\src\Views\Dishes\DeleteDishView;
 use App\src\Views\Dishes\DishPresenter;
 
+use App\src\Views\Users\UsersView;
+use App\src\Views\Users\GetUserView;
+use App\src\Views\Users\CreateUserView;
+use App\src\Views\Users\UpdateUserView;
+use App\src\Views\Users\DeleteUserView;
+use App\src\Views\Users\UserPresenter;
+use App\src\Views\Users\UsersPresenter;
+
 use App\src\Controllers\IndexController;
 use App\src\Controllers\Dishes\GetAllDishesController;
 use App\src\Controllers\Dishes\CreateDishController;
@@ -15,44 +23,93 @@ use App\src\Controllers\Dishes\GetDishController;
 use App\src\Controllers\Dishes\UpdateDishController;
 use App\src\Controllers\Dishes\DeleteDishController;
 
+use App\src\Controllers\Users\GetAllUsersController;
+use App\src\Controllers\Users\GetUserController;
+use App\src\Controllers\Users\CreateUserController;
+use App\src\Controllers\Users\UpdateUserController;
+use App\src\Controllers\Users\DeleteUserController;
+
 use App\src\Models\Repository\API\Dishes\APIDishesRepository;
+use App\src\Models\Repository\API\Users\APIUsersRepository;
+
 use App\src\Models\UseCase\Dishes\GetDishesUseCase;
 use App\src\Models\UseCase\Dishes\CreateDishUseCase;
 use App\src\Models\UseCase\Dishes\GetDishUseCase;
 use App\src\Models\UseCase\Dishes\UpdateDishUseCase;
 use App\src\Models\UseCase\Dishes\DeleteDishUseCase;
 
+use App\src\Models\UseCase\Users\GetUsersUseCase;
+use App\src\Models\UseCase\Users\GetUserUseCase;
+use App\src\Models\UseCase\Users\CreateUserUseCase;
+use App\src\Models\UseCase\Users\UpdateUserUseCase;
+use App\src\Models\UseCase\Users\DeleteUserUseCase;
+
 include "Core/Includes/Autoloader.php";
 \Core\Includes\Autoloader::register();
 
-$dishRepository  = new APIDishesRepository('http://localhost:3001');
+$apiBaseUrl = 'http://localhost:3001';
+$dishRepository  = new APIDishesRepository($apiBaseUrl);
+$userRepository  = new APIUsersRepository($apiBaseUrl);
 // Use Cases
-$getDishesUseCase = new GetDishesUseCase($dishRepository);
-$createDishUseCase = new CreateDishUseCase($dishRepository);
+$getDishesUseCase = new \App\src\Models\UseCase\Dishes\GetDishesUseCase($dishRepository);
+$createDishUseCase = new \App\src\Models\UseCase\Dishes\CreateDishUseCase($dishRepository);
 $getDishUseCase = new \App\src\Models\UseCase\Dishes\GetDishUseCase($dishRepository);
-$updateDishUseCase = new UpdateDishUseCase($dishRepository);
-$deleteDishUseCase = new DeleteDishUseCase($dishRepository);
+$updateDishUseCase = new \App\src\Models\UseCase\Dishes\UpdateDishUseCase($dishRepository);
+$deleteDishUseCase = new \App\src\Models\UseCase\Dishes\DeleteDishUseCase($dishRepository);
+
+$getUsersUseCase = new \App\src\Models\UseCase\Users\GetUsersUseCase($userRepository);
+$getUserUseCase = new \App\src\Models\UseCase\Users\GetUserUseCase($userRepository);
+$createUserUseCase = new \App\src\Models\UseCase\Users\CreateUserUseCase($userRepository);
+$updateUserUseCase = new \App\src\Models\UseCase\Users\UpdateUserUseCase($userRepository);
+$deleteUserUseCase = new \App\src\Models\UseCase\Users\DeleteUserUseCase($userRepository);
 
 // Views and Presenters
-$dishesPresenter = new DishesPresenter($getDishesUseCase);
-$dishesView      = new DishesView($dishesPresenter);
-
-$createDishView = new CreateDishView();
-
-$getDishView = new \App\src\Views\Dishes\GetDishView();
-$updateDishView = new UpdateDishView();
-$deleteDishView = new DeleteDishView();
+// Presenters
+$dishesPresenter = new \App\src\Views\Dishes\DishesPresenter($getDishesUseCase);
 $dishPresenter = new \App\src\Views\Dishes\DishPresenter();
+$usersPresenter = new \App\src\Views\Users\UsersPresenter($getUsersUseCase);
+$userPresenter = new \App\src\Views\Users\UserPresenter();
+
+// Views
+$dishesView = new \App\src\Views\Dishes\DishesView($dishesPresenter);
+$createDishView = new \App\src\Views\Dishes\CreateDishView();
+$getDishView = new \App\src\Views\Dishes\GetDishView();
+$updateDishView = new \App\src\Views\Dishes\UpdateDishView();
+$deleteDishView = new \App\src\Views\Dishes\DeleteDishView();
+
+$usersView = new \App\src\Views\Users\UsersView();
+$getUserView = new \App\src\Views\Users\GetUserView();
+$createUserView = new \App\src\Views\Users\CreateUserView();
+$updateUserView = new \App\src\Views\Users\UpdateUserView();
+$deleteUserView = new \App\src\Views\Users\DeleteUserView();
 
 // Controllers
-$indexController = new IndexController();
-$getAllDishesController = new GetAllDishesController($dishesView);
-$createDishController = new CreateDishController($createDishUseCase, $createDishView);
+$indexController = new \App\src\Controllers\IndexController();
+$getAllDishesController = new \App\src\Controllers\Dishes\GetAllDishesController($dishesView);
+$createDishController = new \App\src\Controllers\Dishes\CreateDishController($createDishUseCase, $createDishView);
 $getDishController = new \App\src\Controllers\Dishes\GetDishController($getDishUseCase, $getDishView, $dishPresenter);
-$updateDishController = new UpdateDishController($getDishUseCase, $updateDishUseCase, $updateDishView, $dishPresenter);
-$deleteDishController = new DeleteDishController($getDishUseCase, $deleteDishUseCase, $deleteDishView, $dishPresenter);
+$updateDishController = new \App\src\Controllers\Dishes\UpdateDishController($getDishUseCase, $updateDishUseCase, $updateDishView, $dishPresenter);
+$deleteDishController = new \App\src\Controllers\Dishes\DeleteDishController($getDishUseCase, $deleteDishUseCase, $deleteDishView, $dishPresenter);
 
-$controllers = [$indexController, $getAllDishesController, $createDishController, $getDishController, $updateDishController, $deleteDishController];
+$getAllUsersController = new \App\src\Controllers\Users\GetAllUsersController($usersView, $usersPresenter);
+$getUserController = new \App\src\Controllers\Users\GetUserController($getUserUseCase, $getUserView, $userPresenter);
+$createUserController = new \App\src\Controllers\Users\CreateUserController($createUserUseCase, $createUserView);
+$updateUserController = new \App\src\Controllers\Users\UpdateUserController($getUserUseCase, $updateUserUseCase, $updateUserView, $userPresenter);
+$deleteUserController = new \App\src\Controllers\Users\DeleteUserController($getUserUseCase, $deleteUserUseCase, $deleteUserView, $userPresenter);
+
+$controllers = [
+    $indexController, 
+    $getAllDishesController, 
+    $createDishController, 
+    $getDishController, 
+    $updateDishController, 
+    $deleteDishController,
+    $getAllUsersController,
+    $createUserController,
+    $getUserController,
+    $updateUserController,
+    $deleteUserController
+];
 
 
 $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
