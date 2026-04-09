@@ -7,15 +7,36 @@ use App\src\Models\Entities\Users\UserCollection;
 use App\src\Models\Repository\API\Users\Factory\UsersFactory;
 use App\src\Models\Service\RepositoryInterface;
 
+/**
+ * Class APIUsersRepository
+ * 
+ * API-based implementation of the User repository.
+ * 
+ * Handles communication with the remote JSON-server for User (subscriber) entities.
+ * 
+ * @package App\src\Models\Repository\API\Users
+ * @author  Hernandez Loic - Griguer Nathan
+ */
 class APIUsersRepository implements RepositoryInterface
 {
+    /** @var string The base URL of the API */
     private string $baseUrl;
 
+    /**
+     * @param string $baseUrl
+     */
     public function __construct(string $baseUrl) 
     {
         $this->baseUrl = $baseUrl;
     }
 
+    /**
+     * Persists a new user to the API.
+     * 
+     * @param User $entity
+     * @return array The created user data
+     * @throws \RuntimeException if the API is unreachable
+     */
     public function save($entity)
     {
         if (!$entity instanceof User) {
@@ -42,12 +63,18 @@ class APIUsersRepository implements RepositoryInterface
 
         if ($result === false) {
             $error = error_get_last();
-            throw new \RuntimeException('Erreur de connexion à l\'API (/utilisateurs) : ' . ($error['message'] ?? 'Serveur injoignable.'));
+            throw new \RuntimeException('API connection error (/utilisateurs) : ' . ($error['message'] ?? 'Server unreachable.'));
         }
 
         return json_decode($result, true);
     }
 
+    /**
+     * Finds a user by its unique identifier.
+     * 
+     * @param string|int $id
+     * @return User|null
+     */
     public function find($id)
     {
         $response = @file_get_contents($this->baseUrl . '/utilisateurs/' . $id);
@@ -64,6 +91,12 @@ class APIUsersRepository implements RepositoryInterface
         return UsersFactory::fromArray($data);
     }
 
+    /**
+     * Deletes a user from the API.
+     * 
+     * @param string|int $id
+     * @return bool
+     */
     public function delete($id)
     {
         $options = [
@@ -78,12 +111,19 @@ class APIUsersRepository implements RepositoryInterface
 
         if ($result === false) {
             $error = error_get_last();
-            throw new \RuntimeException('Erreur de connexion à l\'API pour la suppression de l\'utilisateur : ' . ($error['message'] ?? 'Serveur injoignable.'));
+            throw new \RuntimeException('API connection error during deletion: ' . ($error['message'] ?? 'Server unreachable.'));
         }
 
         return true;
     }
 
+    /**
+     * Updates an existing user via the API.
+     * 
+     * @param string|int $id
+     * @param User $entity
+     * @return array The updated user data
+     */
     public function update($id, $entity)
     {
         if (!$entity instanceof User) {
@@ -110,18 +150,23 @@ class APIUsersRepository implements RepositoryInterface
 
         if ($result === false) {
             $error = error_get_last();
-            throw new \RuntimeException('Erreur de connexion à l\'API pour la mise à jour de l\'utilisateur : ' . ($error['message'] ?? 'Serveur injoignable.'));
+            throw new \RuntimeException('API connection error during update: ' . ($error['message'] ?? 'Server unreachable.'));
         }
 
         return json_decode($result, true);
     }
 
+    /**
+     * Fetches raw list of all users from the API and maps them to a collection.
+     * 
+     * @return UserCollection
+     */
     public function all()
     {
         $response = @file_get_contents($this->baseUrl . '/utilisateurs');
 
         if ($response === false) {
-            throw new \RuntimeException('Impossible de contacter l\'API utilisateurs.');
+            throw new \RuntimeException('Unable to reach the users API.');
         }
 
         $data = json_decode($response, true);

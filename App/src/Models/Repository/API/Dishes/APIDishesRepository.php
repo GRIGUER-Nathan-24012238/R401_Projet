@@ -6,16 +6,36 @@ use App\src\Models\Entities\Dishes\Dish;
 use App\src\Models\Entities\Dishes\DishCollection;
 use App\src\Models\Repository\API\Dishes\Factory\DishesFactory;
 use App\src\Models\Service\RepositoryInterface;
+/**
+ * Class APIDishesRepository
+ * 
+ * API-based implementation of the Dish repository.
+ * 
+ * Handles communication with the remote JSON-server for Dish entities.
+ * 
+ * @package App\src\Models\Repository\API\Dishes
+ * @author  Hernandez Loic - Griguer Nathan
+ */
 class APIDishesRepository implements RepositoryInterface
 {
-
+    /** @var string The base URL of the API */
     private string $baseUrl;
 
+    /**
+     * @param string $baseUrl
+     */
     public function __construct(string $baseUrl) 
     {
         $this->baseUrl = $baseUrl;
     }
 
+    /**
+     * Persists a new dish to the API.
+     * 
+     * @param Dish $entity
+     * @return array The created dish data
+     * @throws \RuntimeException if the API is unreachable or returns an error
+     */
     function save($entity)
     {
         if (!$entity instanceof Dish) {
@@ -42,17 +62,23 @@ class APIDishesRepository implements RepositoryInterface
 
         if ($result === false) {
             $error = error_get_last();
-            throw new \RuntimeException('Erreur de connexion à l\'API (' . $this->baseUrl . ') : ' . ($error['message'] ?? 'Serveur injoignable. Assurez-vous que json-server est lancé.'));
+            throw new \RuntimeException('API connection error (' . $this->baseUrl . ') : ' . ($error['message'] ?? 'Server unreachable.'));
         }
 
-        $http_status = $http_response_header[0] ?? 'Inconnu';
+        $http_status = $http_response_header[0] ?? 'Unknown';
         if (!preg_match('/20[0-1]/', $http_status)) {
-            throw new \RuntimeException('L\'API a retourné une erreur (' . $http_status . ') : ' . $result);
+            throw new \RuntimeException('API returned an error (' . $http_status . ') : ' . $result);
         }
 
         return json_decode($result, true);
     }
 
+    /**
+     * Finds a dish by its unique identifier.
+     * 
+     * @param string|int $id
+     * @return Dish|null
+     */
     function find($id)
     {
         $response = @file_get_contents($this->baseUrl . '/plats/' . $id);
@@ -69,6 +95,13 @@ class APIDishesRepository implements RepositoryInterface
         return DishesFactory::fromArray($data);
     }
 
+    /**
+     * Updates an existing dish via the API.
+     * 
+     * @param string|int $id
+     * @param Dish $entity
+     * @return array The updated dish data
+     */
     function update($id, $entity)
     {
         if (!$entity instanceof Dish) {
@@ -95,11 +128,17 @@ class APIDishesRepository implements RepositoryInterface
 
         if ($result === false) {
             $error = error_get_last();
-            throw new \RuntimeException('Erreur de connexion à l\'API pour la mise à jour : ' . ($error['message'] ?? 'Serveur injoignable.'));
+            throw new \RuntimeException('API connection error during update: ' . ($error['message'] ?? 'Server unreachable.'));
         }
 
         return json_decode($result, true);
     }
+    /**
+     * Deletes a dish from the API.
+     * 
+     * @param string|int $id
+     * @return bool
+     */
     function delete($id)
     {
         $options = [
@@ -114,18 +153,23 @@ class APIDishesRepository implements RepositoryInterface
 
         if ($result === false) {
             $error = error_get_last();
-            throw new \RuntimeException('Erreur de connexion à l\'API pour la suppression : ' . ($error['message'] ?? 'Serveur injoignable.'));
+            throw new \RuntimeException('API connection error during deletion: ' . ($error['message'] ?? 'Server unreachable.'));
         }
 
         return true;
     }
 
+    /**
+     * Fetches raw list of all dishes from the API.
+     * 
+     * @return array Raw dishes data
+     */
     public function all()
     {
         $response = file_get_contents($this->baseUrl . '/plats');
 
         if ($response === false) {
-            throw new \RuntimeException('Impossible de contacter l\'API plats.');
+            throw new \RuntimeException('Unable to reach the dishes API.');
         }
 
         $data = json_decode($response, true);

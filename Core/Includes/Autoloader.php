@@ -2,6 +2,17 @@
 
 namespace Core\Includes;
 
+/**
+ * Class Autoloader
+ * 
+ * Custom Autoloader for the application.
+ * 
+ * Handles dynamic loading of classes based on their namespaces, 
+ * mapping them to the correct file paths in the 'App/src' and 'Core' directories.
+ * 
+ * @package Core\Includes
+ * @author  Hernandez Loic - Griguer Nathan
+ */
 class Autoloader
 {
     /**

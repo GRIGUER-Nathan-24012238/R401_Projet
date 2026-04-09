@@ -6,25 +6,30 @@ namespace App\src\Views\Index;
 use Core\Views\AbstractView;
 use Override;
 
+/**
+ * Class IndexView
+ * 
+ * View for the home page.
+ * 
+ * @package App\src\Views\Index
+ * @author  Hernandez Loic - Griguer Nathan
+ */
 class IndexView extends AbstractView 
 {
-
-
     /**
-     * Implements the path to the specific template for the Main View.
+     * Returns the absolute path to the home page template.
+     * 
+     * @return string
      */
     protected function templatePath(): string 
     {
         return __DIR__ . DIRECTORY_SEPARATOR . 'index.html';    
     }
 
-
     /**
-     * Returns an empty array. Implemented from the parent class.
+     * Returns an empty array (no logic placeholders in the index template).
      *
-     * This method returns an empty array.
-     *
-     * @return array<string, mixed> An empty array
+     * @return array<string, mixed>
      */
     #[Override]
     protected function templateKeys(): array
@@ -32,22 +37,20 @@ class IndexView extends AbstractView
         return [];
     }
 
-
     /**
-     * Implements the name of the CSS file for this specific view.
-     * This will result in <link rel="stylesheet" href="/styles/main.css">
+     * Returns the name of the main CSS file.
+     * 
+     * @return string
      */
     protected function getNameCss(): string 
     {
         return 'home.css';
     }
 
-
-
-
     /**
-     * Renders the specific content for the body of the page.
-     * This is required because AbstractView::render() calls this method.
+     * Renders the home page body.
+     * 
+     * @return void
      */
     protected function renderBody(): void 
     {
@@ -55,13 +58,18 @@ class IndexView extends AbstractView
     }
 
     /**
-     * Optional: Override the page title specifically for this view.
+     * Returns the overridden page title.
+     * 
+     * @return string
      */
     protected function getPageTitle(): string
     {
-        return 'Accueil - Livraison';
+        return 'Home - Meal Delivery Service';
     }
 
+    /**
+     * @return string
+     */
     protected function getAdditionalScripts(): string 
     {
         return '';
