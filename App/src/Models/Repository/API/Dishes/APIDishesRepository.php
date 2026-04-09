@@ -2,13 +2,21 @@
 
 namespace App\src\Models\Repository\API\Dishes;
 
+use App\src\Models\Entities\Dishes\DishCollection;
+use App\src\Models\Repository\API\Dishes\Factory\DishesFactory;
 use App\src\Models\Service\RepositoryInterface;
-
 class APIDishesRepository implements RepositoryInterface
 {
+
+    private string $baseUrl;
+
+    public function __construct(string $baseUrl) 
+    {
+        $this->baseUrl = $baseUrl;
+    }
+
     function save()
     {
-        $response = file_get_contents('http://localhost:8000');
     }
 
     function find($id)
@@ -18,10 +26,26 @@ class APIDishesRepository implements RepositoryInterface
     function update($id)
     {}
 
-    function all()
+    public function all()
     {
-        $file = file_get_contents('http://localhost:3001/plats');
-        print_r($file);
-        return json_decode($file, true);
+    $response = file_get_contents('http://localhost:3001/plats');
+
+    if ($response === false) {
+        throw new \RuntimeException('Impossible de contacter l\'API plats.');
+    }
+
+    $data = json_decode($response, true);
+
+    if (!is_array($data)) {
+        throw new \RuntimeException('Réponse API invalide.');
+    }
+
+    $collection = new DishCollection();
+
+    foreach ($data as $item) {
+        $collection->add(DishesFactory::fromArray($item));
+    }
+
+    return $collection;
     }
 }

@@ -8,16 +8,20 @@ use App\src\Views\Dishes\DishesView;
 use Core\Controllers\ControllerInterface;
 
 class GetAllDishesController implements ControllerInterface {
-    public function control(): void
-    {
-        $api = new APIDishesRepository();
-        $getDishesUseCase = new GetDishesUseCase($api);
-        $dishes =  $getDishesUseCase->execute();
 
-        $view= new DishesView($dishes);
-        $view->render();
+    private GetDishesUseCase $getDishesUseCase;
+
+    public function __construct(GetDishesUseCase $getDishesUseCase) {
+        $this->getDishesUseCase = $getDishesUseCase;
     }
 
+    public function control(): void
+    {
+        $dishesCollection = $this->getDishesUseCase->execute();
+        
+        $view = new DishesView($dishesCollection);
+        $view->render();
+    }
     public static function support(string $path, string $method): bool
     {
         return $path === '/plats' && $method === 'GET';

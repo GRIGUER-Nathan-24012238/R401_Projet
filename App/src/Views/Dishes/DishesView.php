@@ -3,16 +3,17 @@
 
 namespace App\src\Views\Dishes;
 
+use App\src\Models\Entities\Dishes\DishCollection;
 use Core\Views\AbstractView;
 
 class DishesView extends AbstractView 
 {
 
 
-    private array $data;
+    private DishCollection $collection;
 
-    public function __construct(array $data) {
-        $this->data = $data;
+    public function __construct(DishCollection $collection) {
+        $this->collection = $collection;
     }
 
     /**
@@ -25,12 +26,7 @@ class DishesView extends AbstractView
 
     protected function templateKeys(): array
     {
-        return [
-            'ID'          => $this->data['id'],
-            'NOM'         => $this->data['nom'],
-            'DESCRIPTION' => $this->data['description'],
-            'PRIX'        => $this->data['prix'],
-        ];
+        return [];
     }
     
     /**
@@ -48,15 +44,26 @@ class DishesView extends AbstractView
      */
     protected function renderBody(): void 
     {
-        $template = file_get_contents($this->templatePath());
+        $dishes = $this->collection->getAll();
 
-        $keys = $this->templateKeys();
-
-        foreach ($keys as $key => $value) {
-            $template = str_replace("{{{$key}}}", $value, $template);
+        if (empty($dishes)) {
+            echo '<p>Aucun plat disponible.</p>';
+            return;
         }
 
-        echo $template;
+        $template = file_get_contents($this->templatePath());
+
+        echo '<section>';
+
+        foreach ($dishes as $dish) {
+            echo str_replace(
+                ['{{NOM}}', '{{DESCRIPTION}}', '{{PRIX}}'],
+                [$dish->getName(), $dish->getDescription(), $dish->getPrix()],
+                $template
+            );
+        }
+
+        echo '</section>';
     }
 
     /**

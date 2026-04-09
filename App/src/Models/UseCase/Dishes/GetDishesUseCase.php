@@ -2,6 +2,7 @@
 
 namespace App\src\Models\UseCase\Dishes;
 
+use App\src\Models\Entities\Dishes\DishCollection;
 use App\src\Models\Service\RepositoryInterface;
 
 class GetDishesUseCase 
@@ -12,7 +13,7 @@ class GetDishesUseCase
         $this->repositoryInterface = $repositoryInterface;
     }
 
-    public function execute(): array
+    public function execute(): DishCollection
     {
         return $this->repositoryInterface->all();
     }
