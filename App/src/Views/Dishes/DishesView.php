@@ -3,17 +3,15 @@
 
 namespace App\src\Views\Dishes;
 
-use App\src\Models\Entities\Dishes\DishCollection;
+use App\src\Controllers\Dishes\DishesPresenter;
 use Core\Views\AbstractView;
 
 class DishesView extends AbstractView 
 {
+    private DishesPresenter $dishesPresenter;
 
-
-    private DishCollection $collection;
-
-    public function __construct(DishCollection $collection) {
-        $this->collection = $collection;
+    public function __construct(DishesPresenter $dishesPresenter) {
+        $this->dishesPresenter = $dishesPresenter;
     }
 
     /**
@@ -44,25 +42,23 @@ class DishesView extends AbstractView
      */
     protected function renderBody(): void 
     {
-        $dishes = $this->collection->getAll();
-
-        if (empty($dishes)) {
-            echo '<p>Aucun plat disponible.</p>';
-            return;
-        }
 
         $template = file_get_contents($this->templatePath());
 
         echo '<section>';
+        
+        $content = $this->dishesPresenter->present();
 
-        foreach ($dishes as $dish) {
+        foreach ($content as $dish) {
+            
+            // 4. On remplace les balises par les valeurs du Presenter
             echo str_replace(
                 ['{{NOM}}', '{{DESCRIPTION}}', '{{PRIX}}'],
-                [$dish->getName(), $dish->getDescription(), $dish->getPrix()],
+                [$dish['nom'], $dish['description'], $dish['prix']],
                 $template
             );
+            
         }
-
         echo '</section>';
     }
 

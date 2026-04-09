@@ -1,5 +1,6 @@
 <?php
 
+namespace App\src\Models\Entities\Users;
 class User {
     private int $id;
     private string $firstname;

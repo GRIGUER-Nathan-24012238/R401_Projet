@@ -2,11 +2,11 @@
 
 namespace App\src\Controllers\Dishes;
 
+use App\src\Models\Entities\Dishes\DishCollection;
 use App\src\Models\Repository\API\Dishes\APIDishesRepository;
 use App\src\Models\UseCase\Dishes\GetDishesUseCase;
 use App\src\Views\Dishes\DishesView;
 use Core\Controllers\ControllerInterface;
-
 class GetAllDishesController implements ControllerInterface {
 
     private GetDishesUseCase $getDishesUseCase;
@@ -15,12 +15,10 @@ class GetAllDishesController implements ControllerInterface {
         $this->getDishesUseCase = $getDishesUseCase;
     }
 
-    public function control(): void
+    public function control(): DishCollection
     {
         $dishesCollection = $this->getDishesUseCase->execute();
-        
-        $view = new DishesView($dishesCollection);
-        $view->render();
+        return $dishesCollection;
     }
     public static function support(string $path, string $method): bool
     {
