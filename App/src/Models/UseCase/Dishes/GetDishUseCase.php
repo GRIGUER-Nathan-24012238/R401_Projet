@@ -13,7 +13,7 @@ class GetDishUseCase
         $this->repository = $repository;
     }
 
-    public function execute(string $id): Dish
+    public function execute(string $id): ?Dish
     {
         return $this->repository->find($id);
     }

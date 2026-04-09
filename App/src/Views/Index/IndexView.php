@@ -39,7 +39,7 @@ class IndexView extends AbstractView
      */
     protected function getNameCss(): string 
     {
-        return 'main.css';
+        return 'home.css';
     }
 
 

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\src\Views\Dishes;
-
 
 use Core\Views\AbstractView;
 
@@ -14,9 +12,6 @@ class DishesView extends AbstractView
         $this->dishesPresenter = $dishesPresenter;
     }
 
-    /**
-     * Implements the path to the specific template for the Main View.
-     */
     protected function templatePath(): string 
     {
         return __DIR__ . DIRECTORY_SEPARATOR . 'dishes.html';    
@@ -27,51 +22,38 @@ class DishesView extends AbstractView
         return [];
     }
     
-    /**
-     * Implements the name of the CSS file for this specific view.
-     * This will result in <link rel="stylesheet" href="/styles/main.css">
-     */
     protected function getNameCss(): string 
     {
-        return 'main.css';
+        return 'dishes.css';
     }
 
-    /**
-     * Renders the specific content for the body of the page.
-     * This is required because AbstractView::render() calls this method.
-     */
+    protected function getPageTitle(): string
+    {
+        return 'La Carte - Nos Plats';
+    }
+
     protected function renderBody(): void 
     {
-
         $template = file_get_contents($this->templatePath());
-
-        echo '<section>';
+        $dishesList = "";
         
         $content = $this->dishesPresenter->present();
 
-        foreach ($content as $dish) {
-            
-            // 4. On remplace les balises par les valeurs du Presenter
-            echo str_replace(
-                ['{{NOM}}', '{{DESCRIPTION}}', '{{PRIX}}'],
-                [$dish['nom'], $dish['description'], $dish['prix']],
-                $template
-            );
-            
+        if (empty($content)) {
+            $dishesList = "<p>Aucun plat n'est disponible pour le moment.</p>";
+        } else {
+            foreach ($content as $dish) {
+                // Formatting dish card
+                $dishesList .= '
+                <div class="dish-card">
+                    <h3>' . htmlspecialchars($dish['nom']) . '</h3>
+                    <p class="price">' . htmlspecialchars($dish['prix']) . ' €</p>
+                    <p>' . htmlspecialchars($dish['description']) . '</p>
+                    <a href="/plats/' . $dish['id'] . '" class="btn-view">Voir le plat</a>
+                </div>';
+            }
         }
-        echo '</section>';
-    }
 
-    /**
-     * Optional: Override the page title specifically for this view.
-     */
-    protected function getPageTitle(): string
-    {
-        return 'Accueil - Plats';
-    }
-
-    protected function getAdditionalScripts(): string 
-    {
-        return '';
+        echo str_replace('{{DISHES_LIST}}', $dishesList, $template);
     }
 }

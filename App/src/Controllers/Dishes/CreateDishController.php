@@ -55,12 +55,6 @@ class CreateDishController implements ControllerInterface
 
     public static function support(string $path, string $method): bool
     {
-        if ($path === '/plats/nouveau' && $method === 'GET') {
-            return true;
-        }
-        if ($path === '/plats' && $method === 'POST') {
-            return true;
-        }
-        return false;
+        return $path === '/plats/nouveau';
     }
 }

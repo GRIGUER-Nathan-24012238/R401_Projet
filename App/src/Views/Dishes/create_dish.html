@@ -1,15 +1,24 @@
-<form action="/plats" method="POST" class="dish-form">
-    <div class="form-group">
-        <label for="nom">Nom du plat :</label>
-        <input type="text" id="nom" name="nom" required placeholder="Ex: Pizza Margherita">
-    </div>
-    <div class="form-group">
-        <label for="description">Description :</label>
-        <textarea id="description" name="description" required placeholder="Description du plat..."></textarea>
-    </div>
-    <div class="form-group">
-        <label for="prix">Prix (€) :</label>
-        <input type="number" id="prix" name="prix" step="0.01" required placeholder="0.00">
-    </div>
-    <button type="submit" class="btn-submit">Ajouter le plat</button>
-</form>
+<div class="form-container">
+    <h1>Ajouter un nouveau plat</h1>
+    <form action="/plats/nouveau" method="POST">
+        <div class="form-group">
+            <label for="nom">Nom du plat</label>
+            <input type="text" id="nom" name="nom" required placeholder="Ex: Pizza Margherita">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" required placeholder="Ex: Tomate, mozzarella, basilic"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="prix">Prix (€)</label>
+            <input type="number" id="prix" name="prix" step="0.1" min="0" required placeholder="Ex: 12.50">
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Créer le plat</button>
+            <a href="/plats" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</div>

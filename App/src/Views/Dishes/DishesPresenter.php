@@ -22,9 +22,10 @@ class DishesPresenter
 
         foreach ($dishes as $item) {
             $viewModels[] = [
+                'id' => $item->getId(),
                 'nom' => htmlspecialchars($item->getName()),
                 'description' => htmlspecialchars($item->getDescription()),
-                'prix' => number_format($item->getPrix(), 2, ',', ' ') . ' €'
+                'prix' => number_format($item->getPrix(), 2, ',', ' ')
             ];
         }
 

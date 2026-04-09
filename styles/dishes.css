@@ -1,0 +1,71 @@
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.dishes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+.dish-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+.dish-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.dish-card h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+}
+.dish-card .price {
+    font-weight: bold;
+    color: #2d3748;
+    margin-bottom: 15px;
+}
+.dish-card p {
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    flex-grow: 1;
+}
+.btn-view {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #f8f9fa;
+    color: #007bff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    text-align: center;
+}
+.btn-view:hover {
+    background: #e2e6ea;
+}
+
+/* Common form-like buttons used in list headers */
+.btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+}
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+}

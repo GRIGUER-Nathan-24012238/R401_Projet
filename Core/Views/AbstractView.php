@@ -75,12 +75,12 @@ abstract class AbstractView
             <div>
                 <ul>
                     <li><a href="/plats" class="secondary">Nos Plats</a></li>
-                    <li><a href="/menus" class="secondary">Nos Menus</a></li>
+                    <li><a href="/utilisateurs" class="secondary">Nos Abonnés</a></li>
                 </ul>
             </div>
             <div>
                 <ul>
-                    <li><a href="/legal" class="secondary">Mentions légales</a></li>
+                    <li><a href="/" class="secondary">Accueil</a></li>
                 </ul>
             </div>
         </div>
@@ -95,10 +95,9 @@ abstract class AbstractView
         return '
             <li><a href="/">Accueil</a></li>
             <li><a href="/plats">La Carte</a></li>
-            <li><a href="/plats/nouveau">Ajouter un plat</a></li>
+            <li><a href="/plats/nouveau">Ajouter un Plat</a></li>
             <li><a href="/utilisateurs">Abonnés</a></li>
-            <li><a href="/menus">Menus</a></li>
-            <li><a href="/commandes">Mes Commandes</a></li>';
+            <li><a href="/utilisateurs/nouveau">Inscrire un Abonné</a></li>';
     }
 
     protected function getPageTitle(): string

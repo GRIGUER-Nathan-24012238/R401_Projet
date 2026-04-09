@@ -1,0 +1,53 @@
+/* Single item details styles (Dish and User) */
+.single-dish, .single-user {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    background-color: white;
+}
+.single-dish h1, .single-user h1 {
+    color: #2d3748;
+    margin-bottom: 25px;
+}
+.single-dish .description, .user-details p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #4a5568;
+    margin-bottom: 20px;
+}
+.single-dish .price {
+    font-size: 1.4rem;
+    color: #2d3748;
+    margin-bottom: 30px;
+}
+.back-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    color: #3182ce;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+.back-link:hover {
+    background-color: #edf2f7;
+    color: #2b6cb0;
+}
+.actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+.btn-edit {
+    background-color: #3182ce;
+    color: white !important;
+}
+.btn-delete {
+    background-color: #e53e3e;
+    color: white !important;
+}

@@ -2,6 +2,7 @@
 
 namespace App\src\Models\UseCase\Users;
 
+use App\src\Models\Entities\Users\User;
 use App\src\Models\Service\RepositoryInterface;
 
 class GetUserUseCase
@@ -13,7 +14,7 @@ class GetUserUseCase
         $this->repository = $repository;
     }
 
-    public function execute(string $id)
+    public function execute(string $id): ?User
     {
         return $this->repository->find($id);
     }

@@ -25,7 +25,7 @@ class GetUserView extends AbstractView
     
     protected function getNameCss(): string 
     {
-        return 'main.css';
+        return 'details.css';
     }
 
     protected function getPageTitle(): string

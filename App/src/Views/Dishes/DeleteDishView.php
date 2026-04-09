@@ -25,7 +25,7 @@ class DeleteDishView extends AbstractView
     
     protected function getNameCss(): string 
     {
-        return 'main.css';
+        return 'forms.css';
     }
 
     protected function getPageTitle(): string
