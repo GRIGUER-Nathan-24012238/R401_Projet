@@ -95,6 +95,7 @@ abstract class AbstractView
         return '
             <li><a href="/">Accueil</a></li>
             <li><a href="/plats">La Carte</a></li>
+            <li><a href="/plats/nouveau">Ajouter un plat</a></li>
             <li><a href="/menus">Menus</a></li>
             <li><a href="/commandes">Mes Commandes</a></li>';
     }

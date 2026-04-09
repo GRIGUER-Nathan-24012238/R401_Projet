@@ -12,8 +12,8 @@ class CreateDishUseCase
         $this->repositoryInterface = $repositoryInterface;
     }
 
-    public function execute()
+    public function execute(\App\src\Models\Entities\Dishes\Dish $dish)
     {
-        $this->repositoryInterface->all();
+        $this->repositoryInterface->save($dish);
     }
 }

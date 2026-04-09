@@ -3,7 +3,7 @@
 
 namespace App\src\Views\Dishes;
 
-use App\src\Controllers\Dishes\DishesPresenter;
+
 use Core\Views\AbstractView;
 
 class DishesView extends AbstractView 

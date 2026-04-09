@@ -2,7 +2,7 @@
 namespace App\src\Models\Service;
 
 interface RepositoryInterface {
-    function save();
+    function save($entity);
 
     function find($id);
     function delete($id);

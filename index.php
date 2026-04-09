@@ -1,11 +1,14 @@
 <?php
 
-use App\src\Controllers\Dishes\DishesPresenter;
+use App\src\Views\Dishes\DishesPresenter;
 use App\src\Controllers\Dishes\GetAllDishesController;
 use App\src\Controllers\IndexController;
 use App\src\Models\Repository\API\Dishes\APIDishesRepository;
 use App\src\Models\UseCase\Dishes\GetDishesUseCase;
+use App\src\Models\UseCase\Dishes\CreateDishUseCase;
 use App\src\Views\Dishes\DishesView;
+use App\src\Views\Dishes\CreateDishView;
+use App\src\Controllers\Dishes\CreateDishController;
 
 include "Core/Includes/Autoloader.php";
 \Core\Includes\Autoloader::register();
@@ -15,7 +18,11 @@ $getDishesUseCase = new GetDishesUseCase($dishRepository);
 $dishesPresenter = new DishesPresenter($getDishesUseCase);
 $dishesView      = new DishesView($dishesPresenter);
 
-$controllers = [new IndexController(), new GetAllDishesController($dishesView)];
+$createDishUseCase = new CreateDishUseCase($dishRepository);
+$createDishView = new CreateDishView();
+$createDishController = new CreateDishController($createDishUseCase, $createDishView);
+
+$controllers = [new IndexController(), new GetAllDishesController($dishesView), $createDishController];
 
 
 $requestUri = $_SERVER['REQUEST_URI'] ?? '/';

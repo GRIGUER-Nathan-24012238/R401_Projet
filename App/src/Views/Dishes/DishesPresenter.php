@@ -1,6 +1,6 @@
 <?php
 
-namespace App\src\Controllers\Dishes;
+namespace App\src\Views\Dishes;
 
 use App\src\Models\UseCase\Dishes\GetDishesUseCase;
 
