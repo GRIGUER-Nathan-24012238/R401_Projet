@@ -101,7 +101,24 @@ class APIDishesRepository implements RepositoryInterface
         return json_decode($result, true);
     }
     function delete($id)
-    {}
+    {
+        $options = [
+            'http' => [
+                'method' => 'DELETE',
+                'ignore_errors' => true
+            ]
+        ];
+
+        $context = stream_context_create($options);
+        $result = @file_get_contents($this->baseUrl . '/plats/' . $id, false, $context);
+
+        if ($result === false) {
+            $error = error_get_last();
+            throw new \RuntimeException('Erreur de connexion à l\'API pour la suppression : ' . ($error['message'] ?? 'Serveur injoignable.'));
+        }
+
+        return true;
+    }
 
     public function all()
     {

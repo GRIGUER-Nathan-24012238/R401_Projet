@@ -5,6 +5,7 @@ use App\src\Views\Dishes\DishesView;
 use App\src\Views\Dishes\CreateDishView;
 use App\src\Views\Dishes\GetDishView;
 use App\src\Views\Dishes\UpdateDishView;
+use App\src\Views\Dishes\DeleteDishView;
 use App\src\Views\Dishes\DishPresenter;
 
 use App\src\Controllers\IndexController;
@@ -12,12 +13,14 @@ use App\src\Controllers\Dishes\GetAllDishesController;
 use App\src\Controllers\Dishes\CreateDishController;
 use App\src\Controllers\Dishes\GetDishController;
 use App\src\Controllers\Dishes\UpdateDishController;
+use App\src\Controllers\Dishes\DeleteDishController;
 
 use App\src\Models\Repository\API\Dishes\APIDishesRepository;
 use App\src\Models\UseCase\Dishes\GetDishesUseCase;
 use App\src\Models\UseCase\Dishes\CreateDishUseCase;
 use App\src\Models\UseCase\Dishes\GetDishUseCase;
 use App\src\Models\UseCase\Dishes\UpdateDishUseCase;
+use App\src\Models\UseCase\Dishes\DeleteDishUseCase;
 
 include "Core/Includes/Autoloader.php";
 \Core\Includes\Autoloader::register();
@@ -28,6 +31,7 @@ $getDishesUseCase = new GetDishesUseCase($dishRepository);
 $createDishUseCase = new CreateDishUseCase($dishRepository);
 $getDishUseCase = new \App\src\Models\UseCase\Dishes\GetDishUseCase($dishRepository);
 $updateDishUseCase = new UpdateDishUseCase($dishRepository);
+$deleteDishUseCase = new DeleteDishUseCase($dishRepository);
 
 // Views and Presenters
 $dishesPresenter = new DishesPresenter($getDishesUseCase);
@@ -37,6 +41,7 @@ $createDishView = new CreateDishView();
 
 $getDishView = new \App\src\Views\Dishes\GetDishView();
 $updateDishView = new UpdateDishView();
+$deleteDishView = new DeleteDishView();
 $dishPresenter = new \App\src\Views\Dishes\DishPresenter();
 
 // Controllers
@@ -45,8 +50,9 @@ $getAllDishesController = new GetAllDishesController($dishesView);
 $createDishController = new CreateDishController($createDishUseCase, $createDishView);
 $getDishController = new \App\src\Controllers\Dishes\GetDishController($getDishUseCase, $getDishView, $dishPresenter);
 $updateDishController = new UpdateDishController($getDishUseCase, $updateDishUseCase, $updateDishView, $dishPresenter);
+$deleteDishController = new DeleteDishController($getDishUseCase, $deleteDishUseCase, $deleteDishView, $dishPresenter);
 
-$controllers = [$indexController, $getAllDishesController, $createDishController, $getDishController, $updateDishController];
+$controllers = [$indexController, $getAllDishesController, $createDishController, $getDishController, $updateDishController, $deleteDishController];
 
 
 $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
