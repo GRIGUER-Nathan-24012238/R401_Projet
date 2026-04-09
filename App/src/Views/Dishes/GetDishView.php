@@ -43,8 +43,8 @@ class GetDishView extends AbstractView
         $template = file_get_contents($this->templatePath());
         
         echo str_replace(
-            ['{{NOM}}', '{{DESCRIPTION}}', '{{PRIX}}'],
-            [$this->dishData['nom'], $this->dishData['description'], $this->dishData['prix']],
+            ['{{ID}}', '{{NOM}}', '{{DESCRIPTION}}', '{{PRIX}}'],
+            [$this->dishData['id'], $this->dishData['nom'], $this->dishData['description'], $this->dishData['prix']],
             $template
         );
     }

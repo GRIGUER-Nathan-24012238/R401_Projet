@@ -47,7 +47,7 @@ use App\src\Models\UseCase\Users\DeleteUserUseCase;
 include "Core/Includes/Autoloader.php";
 \Core\Includes\Autoloader::register();
 
-$apiBaseUrl = 'http://localhost:3001';
+$apiBaseUrl = 'http://localhost:3003';
 $dishRepository  = new APIDishesRepository($apiBaseUrl);
 $userRepository  = new APIUsersRepository($apiBaseUrl);
 // Use Cases

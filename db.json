@@ -1,18 +1,67 @@
 {
   "plats": [
-    { "id": 1, "nom": "Salade Niçoise", "description": "Thon, olives, oeufs, tomates", "prix": 12.5 },
-    { "id": 2, "nom": "Aïoli", "description": "Morue, légumes vapeur et sauce ail", "prix": 15.0 },
-    { "id": 3, "nom": "Gratin Dauphinois", "description": "Pommes de terre et crème", "prix": 10.0 },
-    { "id": 4, "nom": "Lasagnes", "description": "Bœuf, tomates et béchamel", "prix": 13.5 },
-    { "id": 5, "nom": "Poulet Rôti", "description": "Poulet fermier et frites", "prix": 14.0 },
-    { "id": 6, "nom": "Soupe à l'oignon", "description": "Soupe traditionnelle gratinée", "prix": 8.5 },
-    { "id": 7, "nom": "Quiche Lorraine", "description": "Lardons, œufs et crème", "prix": 11.0 },
-    { "id": 8, "nom": "Ratatouille", "description": "Légumes du soleil mijotés", "prix": 9.5 }
+    {
+      "id": "1",
+      "nom": "Salade Niçoise",
+      "description": "Thon, olives, oeufs, tomates",
+      "prix": 12.5
+    },
+    {
+      "nom": "Aïoli",
+      "description": "Morue, légumes vapeur ",
+      "prix": 778959,
+      "id": "2"
+    },
+    {
+      "id": "3",
+      "nom": "Gratin Dauphinois",
+      "description": "Pommes de terre et crème",
+      "prix": 10
+    },
+    {
+      "id": "4",
+      "nom": "Lasagnes",
+      "description": "Bœuf, tomates et béchamel",
+      "prix": 13.5
+    },
+    {
+      "id": "5",
+      "nom": "Poulet Rôti",
+      "description": "Poulet fermier et frites",
+      "prix": 14
+    },
+    {
+      "nom": "Soupe",
+      "description": "Soupe traditionnelle gratinée",
+      "prix": 777777,
+      "id": "6"
+    }
   ],
   "utilisateurs": [
-    { "id": 1, "nom": "Alice Martin", "adresse": "12 rue d'Aix, Marseille", "email": "alice@email.com" },
-    { "id": 2, "nom": "Bob Durand", "adresse": "5 Avenue de la République, Aix", "email": "bob@email.com" },
-    { "id": 3, "nom": "Charlie Leroy", "adresse": "22 Boulevard Michelet, Marseille", "email": "charlie@email.com" },
-    { "id": 4, "nom": "David Morel", "adresse": "8 Rue de Rome, Marseille", "email": "david@email.com" }
-  ]
+    {
+      "id": "1",
+      "nom": "Alice Martin",
+      "adresse": "12 rue d'Aix, Marseille",
+      "email": "alice@email.com"
+    },
+    {
+      "id": "2",
+      "nom": "Bob Durand",
+      "adresse": "5 Avenue de la République, Aix",
+      "email": "bob@email.com"
+    },
+    {
+      "id": "3",
+      "nom": "Charlie Leroy",
+      "adresse": "22 Boulevard Michelet, Marseille",
+      "email": "charlie@email.com"
+    },
+    {
+      "id": "4",
+      "nom": "David Morel",
+      "adresse": "8 Rue de Rome, Marseille",
+      "email": "david@email.com"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
