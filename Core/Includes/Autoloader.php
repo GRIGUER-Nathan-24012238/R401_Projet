@@ -21,7 +21,6 @@ class Autoloader
     public static function register(): void
     {
         // Calculate project root dynamically.
-        // Assumes Autoloader.php is in Core/Includes/.
         self::$projectRoot = dirname(dirname(__DIR__));
 
         spl_autoload_register(

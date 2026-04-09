@@ -9,6 +9,12 @@ class DishesView extends AbstractView
 {
 
 
+    private array $data;
+
+    public function __construct(array $data) {
+        $this->data = $data;
+    }
+
     /**
      * Implements the path to the specific template for the Main View.
      */
@@ -19,9 +25,14 @@ class DishesView extends AbstractView
 
     protected function templateKeys(): array
     {
-        return [];
+        return [
+            'ID'          => $this->data['id'],
+            'NOM'         => $this->data['nom'],
+            'DESCRIPTION' => $this->data['description'],
+            'PRIX'        => $this->data['prix'],
+        ];
     }
-
+    
     /**
      * Implements the name of the CSS file for this specific view.
      * This will result in <link rel="stylesheet" href="/styles/main.css">

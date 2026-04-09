@@ -1,10 +1,10 @@
 <?php
 
-namespace App\src\Models\UseCase;
+namespace App\src\Models\UseCase\Dishes;
 
 use App\src\Models\Service\RepositoryInterface;
 
-class CreateDishesUseCase 
+class CreateDishUseCase 
 {
     private RepositoryInterface $repositoryInterface;
 

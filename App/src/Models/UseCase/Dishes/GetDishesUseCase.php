@@ -1,6 +1,6 @@
 <?php
 
-namespace App\src\Models\UseCase;
+namespace App\src\Models\UseCase\Dishes;
 
 use App\src\Models\Service\RepositoryInterface;
 
@@ -12,8 +12,11 @@ class GetDishesUseCase
         $this->repositoryInterface = $repositoryInterface;
     }
 
-    public function execute()
+    public function execute(): array
     {
-        $this->repositoryInterface->all();
+        return $this->repositoryInterface->all();
     }
+
+
+    
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\src\Models\Repository\API;
+namespace App\src\Models\Repository\API\Dishes;
 
 use App\src\Models\Service\RepositoryInterface;
 
-class APIDishesAndUserRepository implements RepositoryInterface
+class APIDishesRepository implements RepositoryInterface
 {
     function save()
     {
@@ -19,5 +19,9 @@ class APIDishesAndUserRepository implements RepositoryInterface
     {}
 
     function all()
-    {}
+    {
+        $file = file_get_contents('http://localhost:3001/plats');
+        print_r($file);
+        return json_decode($file, true);
+    }
 }

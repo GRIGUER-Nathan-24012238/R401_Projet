@@ -1,5 +1,7 @@
 <?php
 
+namespace App\src\Models\Entities\Dishes;
+
 class Dish {
     private string $name;
     private string $description;
