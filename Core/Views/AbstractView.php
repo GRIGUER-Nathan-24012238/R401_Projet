@@ -83,6 +83,7 @@ abstract class AbstractView
             <link rel="stylesheet" href="/styles/footer.css">
             <link rel="stylesheet" href="/styles/' . $this->getNameCss() . '">
         </head>
+        
         <body>
             <header class="container">
                 <nav>
